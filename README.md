@@ -15,6 +15,8 @@
 
 ***
 
+This cli tool shows you if packages you depend on had new versions published within the last 24 hours. If your CI builds start failing all of a sudden, or builds/tests are broken locally after a fresh npm install, seeing this list of packages and their latest publish times/versions might help you track the problem down quicker.
+
 ### Installation
 
 With npm, do:
@@ -23,7 +25,7 @@ npm install -g recently-updated
 ```
 
 ### Usage
-In a directory with node_modules, do:
+In a project directory with a `./node_modules`, do:
 ```
 recently-updated
 ```
