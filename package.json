@@ -1,9 +1,9 @@
 {
-  "name": "depdates",
+  "name": "recently-updated",
   "version": "1.0.0",
   "main": "src/index.js",
   "bin": {
-    "depdates": "./src/index.js"
+    "recently-updated": "./src/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
