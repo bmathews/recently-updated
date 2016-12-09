@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 var npm = require('npm');
 var mute = require('mute');
 var asyncMap = require('async.map');
