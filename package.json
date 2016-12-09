@@ -2,14 +2,15 @@
   "name": "recently-updated",
   "version": "1.0.0",
   "main": "src/index.js",
+  "description": "See which packages you depend on were recently updated",
   "bin": {
     "recently-updated": "./src/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Brian Mathews <spoonart@gmail.com>",
+  "license": "MIT",
   "description": "",
   "dependencies": {
     "async.map": "^0.5.2",
