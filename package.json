@@ -1,6 +1,6 @@
 {
   "name": "recently-updated",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "main": "src/index.js",
   "description": "See which packages you depend on were recently updated",
   "bin": {
