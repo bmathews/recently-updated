@@ -8,8 +8,45 @@ var semver = require('semver');
 var chalk = require('chalk');
 var inspect = require('util').inspect;
 var silent = new stream.PassThrough();
+var ArgumentParser = require('argparse').ArgumentParser;
 
-var HOURS = 24;
+
+var parser = new ArgumentParser({
+  version: '1.0.0',
+  addHelp: true,
+  description: 'List recently updated npm packages. ' +
+    'If no options are passed, it will look for packages updated within ' +
+    'the last 24 hours. Multiple cutoff arguments will be combined by ' +
+    'adding them together.'
+});
+parser.addArgument(
+  [ '--hours' ],
+  {
+    help: 'time cutoff in hours',
+  }
+);
+parser.addArgument(
+  [ '-d', '--days' ],
+  {
+    help: 'time cutoff in days'
+  }
+);
+parser.addArgument(
+  [ '-w', '--weeks' ],
+  {
+    help: 'time cutoff in weeks'
+  }
+);
+var args = parser.parseArgs();
+
+const _WEEKS = parseInt(args['weeks']) || 0;
+const _DAYS = parseInt(args['days']) || 0;
+const _HOURS = parseInt(args['hours']) || 0;
+
+var HOURS = _HOURS + 24 * (_DAYS + 7 * _WEEKS);
+if (!HOURS) {
+  HOURS = 24;
+}
 
 npm.load({outfd: null}, function () {
   var unmute = mute(process.stdout);
