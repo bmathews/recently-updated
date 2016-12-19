@@ -1,13 +1,10 @@
 #! /usr/bin/env node
 
 var npm = require('npm');
-var mute = require('mute');
 var asyncMap = require('async.map');
-var stream = require('stream');
 var semver = require('semver');
 var chalk = require('chalk');
 var inspect = require('util').inspect;
-var silent = new stream.PassThrough();
 var ArgumentParser = require('argparse').ArgumentParser;
 var pkg = require('../package.json');
 
@@ -49,11 +46,9 @@ if (!HOURS) {
 }
 
 npm.load({outfd: null}, function () {
-  var unmute = mute(process.stdout);
-  npm.commands.ls([], function (er, tree) {
+  npm.commands.ls([], true, function (er, tree) {
     var flat = flatten(tree);
     addTimes(flat, function () {
-      unmute();
       var lastFound = null;
       for (var key in flat) {
         var dep = flat[key];
@@ -120,7 +115,7 @@ function flatten(tree, out, parent) {
 
 // fetch all the times a package was published
 function getTimesForPackage(dep, cb) {
-  npm.commands.view([dep.name, 'time'], function (err, data) {
+  npm.commands.view([dep.name, 'time'], true, function (err, data) {
     cb(null, data);
   });
 }
@@ -128,16 +123,16 @@ function getTimesForPackage(dep, cb) {
 // fetch and merge in publish times into the flattened tree
 function addTimes(flat, cb) {
   var keys = Object.keys(flat);
-  asyncMap(keys, function (key, cb) {
+  asyncMap(keys, function (key, mapcb) {
     const dep = flat[key];
     return getTimesForPackage(dep, function (err, res) {
       if (err || !res) {
-        cb(null, dep);
+        mapcb(null, dep);
       } else {
         const versionKeys = Object.keys(res);
         if (!versionKeys.length) {
           dep.times = {};
-          cb(null, dep);
+          mapcb(null, dep);
         } else {
           var versionMap = res[versionKeys[0]].time;
           var versions = Object.keys(versionMap);
@@ -146,7 +141,7 @@ function addTimes(flat, cb) {
           versions.forEach(function (v) {
             dep.times[v] = new Date(versionMap[v]);
           });
-          cb(null, dep);
+          mapcb(null, dep);
         }
 
       }
