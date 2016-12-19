@@ -31,7 +31,7 @@ recently-updated
 ```
 
 ### Options
-Specify a time-range to check by passing in `--hours`, `--days`, or `--weeks`:
+Specify a cutoff by passing in `--hours`, `--days`, or `--weeks` (defaults to 24 hours):
 ```
 recently-updated --days 3
 ```

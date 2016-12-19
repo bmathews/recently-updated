@@ -9,14 +9,14 @@ var chalk = require('chalk');
 var inspect = require('util').inspect;
 var silent = new stream.PassThrough();
 var ArgumentParser = require('argparse').ArgumentParser;
-
+var pkg = require('../package.json');
 
 var parser = new ArgumentParser({
-  version: '1.0.0',
+  version: pkg.version,
   addHelp: true,
   description: 'List recently updated npm packages. ' +
     'If no options are passed, it will look for packages updated within ' +
-    'the last 24 hours. Multiple cutoff arguments will be combined by ' +
+    'the last 24 hours. Multiple cutoff arguments can be combined by ' +
     'adding them together.'
 });
 parser.addArgument(
