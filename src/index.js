@@ -1,13 +1,10 @@
 #! /usr/bin/env node
 
 var npm = require('npm');
-var mute = require('mute');
 var asyncMap = require('async.map');
-var stream = require('stream');
 var semver = require('semver');
 var chalk = require('chalk');
 var inspect = require('util').inspect;
-var silent = new stream.PassThrough();
 var ArgumentParser = require('argparse').ArgumentParser;
 
 
@@ -49,11 +46,9 @@ if (!HOURS) {
 }
 
 npm.load({outfd: null}, function () {
-  var unmute = mute(process.stdout);
-  npm.commands.ls([], function (er, tree) {
+  npm.commands.ls([], true, function (er, tree) {
     var flat = flatten(tree);
     addTimes(flat, function () {
-      unmute();
       var lastFound = null;
       for (var key in flat) {
         var dep = flat[key];
@@ -120,7 +115,7 @@ function flatten(tree, out, parent) {
 
 // fetch all the times a package was published
 function getTimesForPackage(dep, cb) {
-  npm.commands.view([dep.name, 'time'], function (err, data) {
+  npm.commands.view([dep.name, 'time'], true, function (err, data) {
     cb(null, data);
   });
 }
