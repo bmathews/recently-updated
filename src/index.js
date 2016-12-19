@@ -123,16 +123,16 @@ function getTimesForPackage(dep, cb) {
 // fetch and merge in publish times into the flattened tree
 function addTimes(flat, cb) {
   var keys = Object.keys(flat);
-  asyncMap(keys, function (key, cb) {
+  asyncMap(keys, function (key, mapcb) {
     const dep = flat[key];
     return getTimesForPackage(dep, function (err, res) {
       if (err || !res) {
-        cb(null, dep);
+        mapcb(null, dep);
       } else {
         const versionKeys = Object.keys(res);
         if (!versionKeys.length) {
           dep.times = {};
-          cb(null, dep);
+          mapcb(null, dep);
         } else {
           var versionMap = res[versionKeys[0]].time;
           var versions = Object.keys(versionMap);
@@ -141,7 +141,7 @@ function addTimes(flat, cb) {
           versions.forEach(function (v) {
             dep.times[v] = new Date(versionMap[v]);
           });
-          cb(null, dep);
+          mapcb(null, dep);
         }
 
       }
