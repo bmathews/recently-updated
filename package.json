@@ -1,6 +1,6 @@
 {
   "name": "recently-updated",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "src/index.js",
   "description": "See which packages you depend on were recently updated",
   "bin": {
@@ -19,8 +19,8 @@
     "npm": "^3.10.9",
     "semver": "^5.3.0"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/bmathews/recently-updated.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bmathews/recently-updated.git"
   }
 }
