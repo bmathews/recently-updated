@@ -79,6 +79,8 @@ npm.load({outfd: null}, function () {
         console.log('\n--------')
         console.log('(use "npm ls ' + lastFound + '" to see what depends on that package)');
         console.log('(use "npm issues ' + lastFound + '" to view the issues for that package)');
+      } else {
+        console.warn('No recently updated dependencies were found');
       }
     });
   });
