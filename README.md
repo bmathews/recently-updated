@@ -30,6 +30,12 @@ In a project directory with a `./node_modules`, do:
 recently-updated
 ```
 
+### Options
+Specify a time-range to check by passing in `--hours`, `--days`, or `--weeks`:
+```
+recently-updated --days 3
+```
+
 <div align="center">
 <img src="https://cloud.githubusercontent.com/assets/848347/21056128/2593bee4-bde9-11e6-8e4a-db876575d8a0.png" />
 </div>
